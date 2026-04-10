@@ -1,9 +1,9 @@
 # SSH Brute-Force Detection & Analysis using Splunk and Python
 --
-📌 Project Overview
+# 📌 Project Overview
 
 This project simulates a real-world Security Operations Center (SOC) investigation focused on detecting and analyzing SSH brute-force attacks using Linux authentication logs.
---
+
 The workflow demonstrates how a SOC analyst can:
 
 * Identify suspicious authentication patterns from raw logs
@@ -14,7 +14,7 @@ The workflow demonstrates how a SOC analyst can:
 # 🎯 Use Case
 
 Detect and analyze high-frequency failed SSH login attempts targeting privileged Linux accounts (e.g., root) to identify brute-force and automated attack activity.
---
+
 # 🛠️ Tools & Technologies
 Python – Log parsing & automation
 Splunk Cloud (SIEM) – Search, correlation, visualization
