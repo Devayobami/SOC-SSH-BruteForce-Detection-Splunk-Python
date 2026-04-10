@@ -42,7 +42,7 @@ These are strong indicators of:
 • Credential brute-force attacks
 • Username enumeration
 
-# 2️⃣ Python Automation
+ 2️⃣ Python Automation
 
 A Python script was developed to automate detection of suspicious entries.
 
@@ -62,7 +62,7 @@ if "authentication failure" in line:
 • Structured dataset for analysis
 • Faster identification of attack patterns
 
-# 3️⃣ SIEM Analysis (Splunk)
+ 3️⃣ SIEM Analysis (Splunk)
 • 🔎 Base Search Query
 source="Linux_2k.log" sourcetype="Linux"
 ("Failed password" OR "authentication failure" OR "Invalid user" OR "user unknown")
