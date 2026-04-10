@@ -16,15 +16,15 @@ The workflow demonstrates how a SOC analyst can:
 Detect and analyze high-frequency failed SSH login attempts targeting privileged Linux accounts (e.g., root) to identify brute-force and automated attack activity.
 
 # 🛠️ Tools & Technologies
-Python – Log parsing & automation
-Splunk Cloud (SIEM) – Search, correlation, visualization
-Linux Logs – Authentication log dataset
-VS Code – Manual log analysis
+• Python – Log parsing & automation
+• Splunk Cloud (SIEM) – Search, correlation, visualization
+• Linux Logs – Authentication log dataset
+• VS Code – Manual log analysis
 
 # 📂 Dataset
-Source: LogHub Linux Dataset (GitHub)
-Log Type: Linux authentication logs (auth.log equivalent)
-Contains: SSH login attempts, failures, invalid users, remote hosts (rhost)
+• Source: LogHub Linux Dataset (GitHub)
+• Log Type: Linux authentication logs (auth.log equivalent)
+• Contains: SSH login attempts, failures, invalid users, remote hosts (rhost)
 
 # 🔍 Detection Approach
 1️⃣ Manual Log Analysis
@@ -38,57 +38,59 @@ Initial inspection of logs revealed repeated patterns:
 
 These are strong indicators of:
 
-Unauthorized access attempts
-Credential brute-force attacks
-Username enumeration
+• Unauthorized access attempts
+• Credential brute-force attacks
+• Username enumeration
 
 # 2️⃣ Python Automation
 
 A Python script was developed to automate detection of suspicious entries.
 
 Key Functions:
-Reads raw log file
-Filters authentication-related events
-Extracts suspicious patterns
-Outputs structured results
+• Reads raw log file
+• Filters authentication-related events
+• Extracts suspicious patterns
+• Outputs structured results
+
 Example Logic:
 if "authentication failure" in line:
     suspicious_entries.append(("Auth Failure", line.strip()))
 
 ✅ Outcome:
 
-Reduced manual effort
-Structured dataset for analysis
-Faster identification of attack patterns
+• Reduced manual effort
+• Structured dataset for analysis
+• Faster identification of attack patterns
 
 # 3️⃣ SIEM Analysis (Splunk)
-🔎 Base Search Query
+• 🔎 Base Search Query
 source="Linux_2k.log" sourcetype="Linux"
 ("Failed password" OR "authentication failure" OR "Invalid user" OR "user unknown")
 
-📊 Detection Query (Brute-Force Identification)
+• 📊 Detection Query (Brute-Force Identification)
 | bucket _time span=5m
 | stats count by _time, rhost
 | where count > 20
+
 📌 Purpose:
 Detects potential brute-force attacks where a single IP exceeds 20 failed login attempts within 5 minutes
 
-📈 Time-Series Visualization
+• 📈 Time-Series Visualization
 | timechart span=5m count by rhost
 
 📌 Used to identify:
 
-Attack spikes
-Burst patterns
+Attack spikes, 
+Burst patterns, 
 Automated behavior
 
 # 📊 Key Findings
-608 suspicious authentication events detected
-Root account was the most targeted user
-80 failed login attempts from a single IP address
-Multiple remote hosts (rhost) involved → distributed attack pattern
-Authentication attempts occurred within seconds → automated activity
-Time-based analysis revealed clear spikes (attack bursts)
+• 608 suspicious authentication events detected
+• Root account was the most targeted user
+• 80 failed login attempts from a single IP address
+• Multiple remote hosts (rhost) involved → distributed attack pattern
+• Authentication attempts occurred within seconds → automated activity
+• Time-based analysis revealed clear spikes (attack bursts)
 
 # 🌐 Indicators of Compromise (IOCs)
 |Type	      |Value	               | Description
@@ -101,32 +103,30 @@ Log Pattern	authentication failure	Brute-force indicator
 
 Observed behavior indicates:
 
-Automated brute-force attack
-Password guessing & spraying techniques
-Username enumeration (invalid users)
-Distributed attack sources (possible botnet activity)
+• Automated brute-force attack
+• Password guessing & spraying techniques
+• Username enumeration (invalid users)
+• Distributed attack sources (possible botnet activity)
 
 # 🧬 MITRE ATT&CK Mapping
-Technique	ID
-Brute Force	T1110
-Password Guessing	T1110.001
-Password Spraying	T1110.003
+|Technique	|ID
+|Brute Force	|T1110
+|Password Guessing	|T1110.001
+|Password Spraying	|T1110.003
 
 # 🚨 SOC Detection Use Case
 
 Trigger Condition:
 
-More than 20 failed login attempts from a single IP within 5 minutes
+* More than 20 failed login attempts from a single IP within 5 minutes
 
 SOC Response Actions:
 
-Block offending IP address
-Alert SOC team
-Investigate targeted accounts
-Enforce password reset if necessary
-📸 Screenshots
+• Block offending IP address
+• Alert SOC team
+• Investigate targeted accounts
+• Enforce password reset if necessary
 
-(Add your screenshots in the /screenshots folder and display them here)
 
 Example:
 Splunk Timechart (Attack Spikes)
