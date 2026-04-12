@@ -13,7 +13,8 @@ The workflow demonstrates how a SOC analyst can:
 --
 # 🎯 Use Case
 
-Detect and analyze high-frequency failed SSH login attempts targeting privileged Linux accounts (e.g., root) to identify brute-force and automated attack activity.
+Detect and analyze high-frequency failed SSH login attempts targeting privileged Linux accounts (e.g., root) 
+To identify brute-force and automated attack activity.
 
 # 🛠️ Tools & Technologies
 * Python – Log parsing & automation
@@ -51,10 +52,6 @@ Key Functions:
 * Filters authentication-related events
 * Extracts suspicious patterns
 * Outputs structured results
-
-Example Logic:
-if "authentication failure" in line:
-    suspicious_entries.append(("Auth Failure", line.strip()))
 
 ✅ Outcome:
 
@@ -94,10 +91,10 @@ Detects potential brute-force attacks where a single IP exceeds 20 failed login 
 
 # 🌐 Indicators of Compromise (IOCs)
 |Type	      |Value	               | Description
-|IP Address	|150.183.249.110	|Highest brute-force attempts (80)
-|IP Address	|207.243.167.114	|Secondary attacker
-|Username	|root	|Primary target
-Log Pattern	authentication failure	Brute-force indicator
+|IP Address	|150.183.249.110	     |Highest brute-force attempts (80)
+|IP Address	|207.243.167.114	     |Secondary attacker
+|Username	  |root	                  |Primary target
+
 
 # 🧠 Attack Analysis
 
@@ -109,8 +106,8 @@ Observed behavior indicates:
 * Distributed attack sources (possible botnet activity)
 
 # 🧬 MITRE ATT&CK Mapping
-|Technique	|ID
-|Brute Force	|T1110
+|Technique	        |ID
+|Brute Force	      |T1110
 |Password Guessing	|T1110.001
 |Password Spraying	|T1110.003
 
@@ -118,59 +115,61 @@ Observed behavior indicates:
 
 Trigger Condition:
 
-* More than 20 failed login attempts from a single IP within 5 minutes
+* More than 10 failed login attempts from a single IP within 5 minutes
 
 SOC Response Actions:
 
 * Block offending IP address
 * Alert SOC team
 * Investigate targeted accounts
-* Enforce password reset if necessary
+* Enforce password reset & MFA
 
 
 
 # 🛡️ Security Recommendations
-* 🔒 Authentication Hardening
-Disable direct root login (PermitRootLogin no)
-Enforce strong password policies
-Enable Multi-Factor Authentication (MFA)
+1 🔒 Authentication Hardening
+* Disable direct root login (PermitRootLogin no)
+* Enforce strong password policies
+* Enable Multi-Factor Authentication (MFA)
 
-* 🌐 Access Control
-Restrict SSH access via firewall or VPN
-Allow only trusted IP ranges
+2 🌐 Access Control
+* Restrict SSH access via firewall or VPN
+* Allow only trusted IP ranges
 
-* 🚫 Attack Prevention
-Deploy Fail2Ban or IPS solutions
-Automatically block repeated failed login attempts
+3 🚫 Attack Prevention
+* Deploy Fail2Ban or IPS solutions
+* Automatically block repeated failed login attempts
 
-* 📡 Detection Improvements
-Implement Splunk alerts for brute-force thresholds
-Monitor abnormal login patterns
-Integrate threat intelligence feeds
+4 📡 Detection Improvements
+* Implement Splunk alerts for brute-force thresholds
+* Monitor abnormal login patterns
+* Integrate threat intelligence feeds
 
-* 📉 Risk Assessment
-Severity: HIGH
-Impact: Potential full system compromise
-Likelihood: High (based on automation and frequency)
+5 📉 Risk Assessment
+* Severity: HIGH
+* Impact: Potential full system compromise
+* Likelihood: High (based on automation and frequency)
 
 
 # 🧠 Skills Demonstrated
-Log analysis & threat detection
-Python scripting for automation
-SIEM (Splunk) investigation
-Behavioral attack analysis
-MITRE ATT&CK mapping
-Security reporting & documentation
+* Log analysis & threat detection
+* Python scripting for automation
+* SIEM (Splunk) investigation
+* Behavioral attack analysis
+* MITRE ATT&CK mapping
+* Security reporting & documentation
 
 --
 # 🚀 Why This Project Matters
 
 This project demonstrates how a SOC analyst can:
 
-Detect real-world brute-force attacks
-Automate log analysis workflows
-Use SIEM tools to identify attack patterns
-Translate technical findings into actionable security insights
+* Detect real-world brute-force attacks
+* Automate log analysis workflows
+* Use SIEM tools to identify attack patterns
+   Translate technical findings into actionable security insights
+
+
 👨‍💻 Author
 
 Abubakar Yusuf
